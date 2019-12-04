@@ -17,7 +17,9 @@ public class PhoneticManager : MonoBehaviour
         if (slots.Count != 0)
         {
             StartCoroutine(Speaking());
-            result.text = "please wait...";
+
+            //result.text = "please wait...";
+
         }
     }
 
@@ -35,14 +37,21 @@ public class PhoneticManager : MonoBehaviour
             else
             {
                 //For Google Translator
-
                 word += slots[i].GetComponentInChildren<PhoneticManager>().phoneme;
-                    
-                //speech.Speak(slots[i].GetComponentInChildren<PhoneticManager>().audioClip);
-                //yield return new WaitForSeconds(slots[i].GetComponentInChildren<PhoneticManager>().audioClip.length/1.5f);
+
+                if (word == "cot")
+                {
+
+                }
+
+                speech.Speak(slots[i].GetComponentInChildren<PhoneticManager>().audioClip);
+                yield return new WaitForSeconds(slots[i].GetComponentInChildren<PhoneticManager>().audioClip.length/1.5f);
             }
         }
 
+        /*
+         * For Google Translator
+         *       
         string url = "https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=" +
                 word + "&tl=En-gb";
         UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG);
@@ -57,6 +66,9 @@ public class PhoneticManager : MonoBehaviour
         speech.Speak(audioClip);
         yield return new WaitForSeconds(audioClip.length);
         result.text = "";
+        *
+        *      
+        */       
     }
 
 }
