@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Phonics.unity
-    guid: 0eff7984685e9401eb21ad722aa339d8
+    path: Assets/Scenes/SentenceCreator.unity
+    guid: ca95af4974bd84e8aafb23ce215a033e
   m_configObjects: {}
