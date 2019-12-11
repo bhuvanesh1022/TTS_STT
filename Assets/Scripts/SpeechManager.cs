@@ -6,6 +6,7 @@ public class SpeechManager : MonoBehaviour
 {
     private AudioSource audioSource;
 
+    public int noOfSyllabes;
     public List<AudioClip> correctAudio = new List<AudioClip>();
     public List<AudioClip> wrongAudio = new List<AudioClip>();
     public List<Transform> slots = new List<Transform>();
@@ -15,6 +16,10 @@ public class SpeechManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        noOfSyllabes = Mathf.Clamp(noOfSyllabes, 0, 3);
+    }
     public void Speak(AudioClip clip)
     {
         audioSource.clip = clip;
