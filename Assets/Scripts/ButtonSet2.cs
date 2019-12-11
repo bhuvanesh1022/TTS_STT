@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ButtonSet2 : MonoBehaviour
 {
     public int whichplace;
-
+  
 
     public void Imagedropdown()
     {
@@ -21,7 +21,7 @@ public class ButtonSet2 : MonoBehaviour
 
 
 
-    public void EnableNoun()
+    public void EnableNoun(int verbid)
     {
 
 
@@ -29,9 +29,25 @@ public class ButtonSet2 : MonoBehaviour
         {
             SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
         }
-
-        SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.nounSprites[whichplace];
+        SentenceMaker.sentenceMaker. whichanimal = verbid;
+        SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
       //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color;
+    }
+    public void Enableverb(int verbid)
+    {
+      //  SentenceMaker.sentenceMaker.whichanimal = verbid;
+        if (SentenceMaker.sentenceMaker == null)
+        {
+            SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+        }
+        SentenceMaker.sentenceMaker.whicverb = verbid;
+        if (SentenceMaker.sentenceMaker.colorImg.activeInHierarchy)
+        {
+            SentenceMaker.sentenceMaker. colorImg.SetActive(false);
+            SentenceMaker.sentenceMaker. nounImg.SetActive(true);
+        }
+        SentenceMaker.sentenceMaker. nounImg.SetActive(true);
+        SentenceMaker.sentenceMaker. nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker. verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
     }
 
 }
