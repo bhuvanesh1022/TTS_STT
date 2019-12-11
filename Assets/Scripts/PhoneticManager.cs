@@ -14,13 +14,15 @@ public class PhoneticManager : MonoBehaviour
 
     public void SpeakNow()
     {
-        if (slots.Count != 0)
-        {
-            StartCoroutine(Speaking());
+        speech.Speak(audioClip);
 
-            //result.text = "please wait...";
+        //if (slots.Count != 0)
+        //{
+        //    StartCoroutine(Speaking());
 
-        }
+        //    //result.text = "please wait...";
+
+        //}
     }
 
     IEnumerator Speaking()
