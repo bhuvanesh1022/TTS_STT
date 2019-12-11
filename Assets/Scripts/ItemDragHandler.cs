@@ -8,16 +8,15 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public static Transform itemBeingDragged;
     public Vector3 startPosition;
     public Transform startParent;
-    //public Transform slot;
-
     private CanvasGroup canvasGroup;
 
 
     public void Start()
     {
-        startPosition = transform.position;
+        startPosition = transform.localPosition;
         startParent = transform.parent;
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         itemBeingDragged = transform;
@@ -44,7 +43,7 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (transform.parent == startParent)
         {
-            transform.position = startPosition;
+            transform.localPosition = startPosition;
         }
         else
         {
