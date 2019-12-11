@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 {
-	public class GCSR_Example : MonoBehaviour
+	public class GoogleVoice : MonoBehaviour
 	{
 		private GCSpeechRecognition _speechRecognition;
 
@@ -75,7 +75,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
 			_voiceLevelImage = transform.Find("Canvas/Panel_VoiceLevel/Image_Level").GetComponent<Image>();
 
-			_startRecordButton.onClick.AddListener(StartRecordButtonOnClickHandler);
+			
 			_stopRecordButton.onClick.AddListener(StopRecordButtonOnClickHandler);
 			_getOperationButton.onClick.AddListener(GetOperationButtonOnClickHandler);
 			_getListOperationsButton.onClick.AddListener(GetListOperationsButtonOnClickHandler);
@@ -374,6 +374,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                 _resultText.text = "Long Running Recognize Success. Words not detected.";
             }
         }
+
 
 		private void InsertRecognitionResponseInfo(RecognitionResponse recognitionResponse)
 		{
