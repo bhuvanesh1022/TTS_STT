@@ -12,6 +12,7 @@ public class SentenceMaker : MonoBehaviour
     public GameObject colorImg;
     public GameObject nounImg;
     public List<Sprite> nounSprites = new List<Sprite>();
+    public List<GameObject> verbsprite = new List<GameObject>();
     public List<GameObject> outputobject = new List<GameObject>();
     public List<GameObject> typeparent = new List<GameObject>();
     public List<GameObject> newoutputobject = new List<GameObject>();
@@ -26,8 +27,8 @@ public class SentenceMaker : MonoBehaviour
     public bool isvoicematched;
     public GameObject theobject;
     public GameObject isobject;
-  
-
+    public int whicverb;
+    public int whichanimal;
     public void AddWord(string word)
     {
         string detectedWord = word.Trim();
@@ -110,9 +111,21 @@ public class SentenceMaker : MonoBehaviour
             colorImg.SetActive(false);
             nounImg.SetActive(true);
         }
+        whichanimal = id;
         nounImg.SetActive(true);
         nounImg.GetComponent<Image>().sprite = nounSprites[id];
         nounImg.GetComponent<Image>().color = _color;
+    }
+    public void EnableVerb(int verbid)
+    {
+        if (colorImg.activeInHierarchy)
+        {
+            colorImg.SetActive(false);
+            nounImg.SetActive(true);
+        }
+        nounImg.SetActive(true);
+        nounImg.GetComponent<Image>().sprite = verbsprite[whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
+        whicverb = verbid;
     }
     private void Update()
     {
