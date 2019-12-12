@@ -7,6 +7,8 @@ public class SpeechManager : MonoBehaviour
     private AudioSource audioSource;
 
     public int noOfSyllabes;
+    public List<string> actualWords = new List<string>();
+    public List<string> nonsenseWords = new List<string>();
     public List<AudioClip> correctAudio = new List<AudioClip>();
     public List<AudioClip> wrongAudio = new List<AudioClip>();
     public List<Transform> slots = new List<Transform>();
