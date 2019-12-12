@@ -16,28 +16,31 @@ public class OutputButton : MonoBehaviour
     // Start is called before the first frame update
     public void Dropdownfn(int type)
     {
+        if (SentenceMaker.sentenceMaker.newoutputobject.Count == 3)
+        {
 
-        type = this.gameObject.GetComponent<Wordclick>().type;                ;
-        wordtype = type;
+            type = this.gameObject.GetComponent<Wordclick>().type; ;
+            wordtype = type;
             switch (type)
             {
                 case 0:
-                    SentenceMaker.sentenceMaker. typeparent[0].SetActive(true);
-                    SentenceMaker.sentenceMaker. typeparent[1].SetActive(false);
-                    SentenceMaker.sentenceMaker. typeparent[2].SetActive(false);
+                    SentenceMaker.sentenceMaker.typeparent[0].SetActive(true);
+                    SentenceMaker.sentenceMaker.typeparent[1].SetActive(false);
+                    SentenceMaker.sentenceMaker.typeparent[2].SetActive(false);
                     break;
                 case 1:
-                    SentenceMaker.sentenceMaker. typeparent[0].SetActive(false);
-                    SentenceMaker.sentenceMaker. typeparent[1].SetActive(true);
-                    SentenceMaker.sentenceMaker. typeparent[2].SetActive(false);
+                    SentenceMaker.sentenceMaker.typeparent[0].SetActive(false);
+                    SentenceMaker.sentenceMaker.typeparent[1].SetActive(true);
+                    SentenceMaker.sentenceMaker.typeparent[2].SetActive(false);
                     break;
                 case 2:
-                    SentenceMaker.sentenceMaker. typeparent[0].SetActive(false);
-                    SentenceMaker.sentenceMaker. typeparent[1].SetActive(false);
-                    SentenceMaker.sentenceMaker. typeparent[2].SetActive(true);
+                    SentenceMaker.sentenceMaker.typeparent[0].SetActive(false);
+                    SentenceMaker.sentenceMaker.typeparent[1].SetActive(false);
+                    SentenceMaker.sentenceMaker.typeparent[2].SetActive(true);
                     break;
 
-            
+
             }
+        }
     }
 }

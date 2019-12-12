@@ -10,20 +10,21 @@ public class ButtonSet2 : MonoBehaviour
 
     public void Imagedropdown()
     {
+   
         if (SentenceMaker.sentenceMaker == null)
         {
             SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
         }
         //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.nounSprites[whichplace];
         SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = this.gameObject.GetComponent<Image>().color;
-
+        this.gameObject.transform.parent.gameObject.SetActive(false);
     }
 
 
 
     public void EnableNoun(int verbid)
     {
-
+        
 
         if (SentenceMaker.sentenceMaker == null)
         {
@@ -31,11 +32,13 @@ public class ButtonSet2 : MonoBehaviour
         }
         SentenceMaker.sentenceMaker. whichanimal = verbid;
         SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
-      //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color;
+        //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color;
+        this.gameObject.transform.parent.gameObject.SetActive(false);
     }
     public void Enableverb(int verbid)
     {
-      //  SentenceMaker.sentenceMaker.whichanimal = verbid;
+        this.gameObject.transform.parent.gameObject.SetActive(true);
+        //  SentenceMaker.sentenceMaker.whichanimal = verbid;
         if (SentenceMaker.sentenceMaker == null)
         {
             SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
@@ -48,6 +51,8 @@ public class ButtonSet2 : MonoBehaviour
         }
         SentenceMaker.sentenceMaker. nounImg.SetActive(true);
         SentenceMaker.sentenceMaker. nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker. verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
+        this.gameObject.transform.parent.gameObject.SetActive(false);
     }
+   
 
 }

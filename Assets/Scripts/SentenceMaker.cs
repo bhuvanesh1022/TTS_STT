@@ -29,6 +29,7 @@ public class SentenceMaker : MonoBehaviour
     public GameObject isobject;
     public int whicverb;
     public int whichanimal;
+    public List<Transform> outpurposition = new List<Transform>();
     public void AddWord(string word)
     {
         string detectedWord = word.Trim();
@@ -160,8 +161,11 @@ public class SentenceMaker : MonoBehaviour
                     refbutton.name = outputobject[outputobject.Count - 1].name;
             if (outputobject.Count > 3)
                 return;
-                    g = Instantiate(refbutton, refbuttonobjectparent.transform);
-                    newoutputobject.Add(g);
+         
+                g = Instantiate(refbutton, outpurposition[outputobject.Count - 1].position,Quaternion.identity,refbuttonobjectparent.transform.parent);
+                newoutputobject.Add(g);
+            
+                 
 
             isvoicematched = false;
        
