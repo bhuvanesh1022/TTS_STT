@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class ItemDropHandler : MonoBehaviour, IDropHandler
 {
     public Transform world;
-
+    public SpeechManager manager;
     private GameObject Item;
 
     public void OnDrop(PointerEventData eventData)
@@ -19,6 +19,7 @@ public class ItemDropHandler : MonoBehaviour, IDropHandler
             Item.transform.position = Item.GetComponent<ItemDragHandler>().startPosition;
             Item.transform.SetParent(Item.GetComponent<ItemDragHandler>().startParent);
             ItemDragHandler.itemBeingDragged.SetParent(transform);
+            manager.noOfSyllabes--;
         }
 
     }
