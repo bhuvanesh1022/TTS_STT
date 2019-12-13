@@ -9,10 +9,29 @@ public class Wordclick : MonoBehaviour
     public int type;
    // public bool isinstantiated;
     public bool caninstantiate;
+  
+    public int nounid;
+    public int verbid;
     private void Start()
     {
+       
         this.gameObject.GetComponent<Button>().onClick.AddListener(AddClicked);
-        
+
+        if (this.gameObject.tag == "Verb")
+        {
+            type = 2;
+          
+        }
+        else if (this.gameObject.tag == "Noun")
+        {
+            type = 1;
+
+        }
+        else if (this.gameObject.tag == "Adjective")
+        {
+            type = 0;
+           
+        }
     }
 
 
@@ -48,28 +67,7 @@ public class Wordclick : MonoBehaviour
             }
         }
     }
-    void Voicetext()
-    {
-        if (SentenceMaker.sentenceMaker == null)
-        {
-            SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
-        }
-        
-     
-            if (SentenceMaker.sentenceMaker.voicetext.text==this.gameObject.GetComponentInChildren<TextMeshProUGUI>().text)
-        {
-           
-            SentenceMaker.sentenceMaker.isvoicematched = true;
 
-        }
-
-       if(caninstantiate)
-        {
-            SentenceMaker.sentenceMaker.outputobject.Add(this.gameObject);
-            caninstantiate = false;
-            SentenceMaker.sentenceMaker.isvoicematched = true;
-        }
-    }
     public void Changinginplay()
     {
         for (int i = 0; i < SentenceMaker.sentenceMaker.newoutputobject.Count; i++)
@@ -94,7 +92,7 @@ public class Wordclick : MonoBehaviour
         {
             SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
         }
-        //Voicetext();
+      
         if (SentenceMaker.sentenceMaker.outputobject!=null)
         {
          
