@@ -17,8 +17,9 @@ public class SentenceMaker : MonoBehaviour
     public List<GameObject> typeparent = new List<GameObject>();
     public List<GameObject> newoutputobject = new List<GameObject>();
     public Text voicetext;
-   
-    private Color _color;
+    public Text wordsnotdetected;
+
+    public Color _color;
     public GameObject refbuttonobjectparent;
     public GameObject refbutton;
     public bool isclicked;
@@ -104,6 +105,7 @@ public class SentenceMaker : MonoBehaviour
         }
         GameObject.Find(detectedWord).transform.parent.gameObject.SetActive(false);
     }
+   
 
     public void EnableNoun(int id)
     {
@@ -131,6 +133,9 @@ public class SentenceMaker : MonoBehaviour
     private void Update()
     {
         NewObjectAdd();
+        StartCoroutine("WaitSec");
+      
+       // whicverb = outputobject[3].GetComponent<OutputButton>().verbid;
        
     }
    
@@ -149,8 +154,10 @@ public class SentenceMaker : MonoBehaviour
                   
                     refbutton.GetComponent<Image>().sprite = outputobject[outputobject.Count-1].GetComponent<Image>().sprite;
                     refbutton.GetComponent<Wordclick>().type = outputobject[outputobject.Count - 1].GetComponent<Wordclick>().type;
+
             refbutton.GetComponent<Wordclick>().caninstantiate = outputobject[outputobject.Count - 1].GetComponent<Wordclick>().caninstantiate;
             refbutton.GetComponent<Button>().onClick.AddListener(delegate { AddWord(refbutton.gameObject.name); });
+            Debug.Log("type");
             if (!refbutton.GetComponent<OutputButton>())
             {
                 refbutton.AddComponent<OutputButton>();
@@ -185,5 +192,14 @@ public class SentenceMaker : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+    IEnumerator WaitSec()
+    {
+        if (wordsnotdetected.text == "Words not detected.")
+        {
+            wordsnotdetected.text = "Words not detected.";
+           yield return new WaitForSeconds(2f);
+            wordsnotdetected.text = "";
+        }
     }
 }

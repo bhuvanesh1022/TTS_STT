@@ -112,9 +112,12 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             {
                 SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
             }
+            _resultText.text.ToUpper();
             _contextPhrasesInputField.GetComponentInChildren<Text>().text = _resultText.text;
-            SentenceMaker.sentenceMaker.voicetext.text =_resultText.text;
-            SentenceMaker.sentenceMaker.voicetext.text.ToUpper();
+            
+            SentenceMaker.sentenceMaker.voicetext.text =_resultText.text.ToUpper();
+            //SentenceMaker.sentenceMaker.voicetext.text;
+            SentenceMaker.sentenceMaker.voicetext.text=  SentenceMaker.sentenceMaker.voicetext.text.Trim();
 
 
             if (_speechRecognition.IsRecording)
@@ -319,6 +322,8 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             if (recognitionResponse == null || recognitionResponse.results.Length == 0)
             {
                 _resultText.text = "Words not detected.";
+                SentenceMaker.sentenceMaker.wordsnotdetected.text = "Words not detected.";
+
                 return;
             }
 
@@ -339,8 +344,8 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                 _resultText.text = times.Insert(times.Length, " ");
                 if (!Canrecord)
                 {
-                    SentenceMaker.sentenceMaker.AddWord(_resultText.text);
-                    
+                    //   SentenceMaker.sentenceMaker   SentenceMaker.sentenceMaker.wordsnotdetected.text = "Words not detected.";.AddWord(SentenceMaker.sentenceMaker.voicetext.text);
+
                 }
             }
 
@@ -364,4 +369,6 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
 
     }
+   
+
 }

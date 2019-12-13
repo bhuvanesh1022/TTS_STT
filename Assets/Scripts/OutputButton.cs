@@ -6,9 +6,26 @@ using UnityEngine.UI;
 public class OutputButton : MonoBehaviour
 {
     public int wordtype;
+   
     private void Update()
     {
-        if(this.gameObject.activeInHierarchy)
+        if (this.gameObject.tag == "Verb")
+        {
+            wordtype = 2;
+
+        }
+        else if (this.gameObject.tag == "Noun")
+        {
+            wordtype = 1;
+
+        }
+        else if (this.gameObject.tag == "Adjective")
+        {
+            wordtype = 0;
+
+        }
+
+        if (this.gameObject.activeInHierarchy)
         {
             this.gameObject.GetComponent<Button>().onClick.AddListener(delegate { Dropdownfn(this.gameObject.GetComponent<Wordclick>().type); });
         }
@@ -19,7 +36,7 @@ public class OutputButton : MonoBehaviour
         if (SentenceMaker.sentenceMaker.newoutputobject.Count == 3)
         {
 
-            type = this.gameObject.GetComponent<Wordclick>().type; ;
+            type = this.gameObject.GetComponent<Wordclick>().type; 
             wordtype = type;
             switch (type)
             {
