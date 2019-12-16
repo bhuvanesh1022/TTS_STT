@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 {
     public class GCSR : MonoBehaviour
@@ -23,6 +24,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
         public Image _voiceLevelImage;
         public bool Canrecord;
         public static GCSR gCSR;
+        public float maxseconds;
         private void Start()
         {
             _speechRecognition = GCSpeechRecognition.Instance;
@@ -112,9 +114,21 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             {
                 SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
             }
+            if (Canrecord)
+            {
+                maxseconds -= Time.deltaTime;
+              //  StartRecordButtonOnClickHandler();
+                if (maxseconds <= 0)
+                {
+                    StopRecordButtonOnClickHandler();
+                    Canrecord = false;
+                    maxseconds = 5f;
+                }
+            }
             _resultText.text.ToUpper();
             _contextPhrasesInputField.GetComponentInChildren<Text>().text = _resultText.text;
-            
+           
+           
             SentenceMaker.sentenceMaker.voicetext.text =_resultText.text.ToUpper();
             //SentenceMaker.sentenceMaker.voicetext.text;
             SentenceMaker.sentenceMaker.voicetext.text=  SentenceMaker.sentenceMaker.voicetext.text.Trim();
@@ -155,19 +169,19 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
         public void StartRecordButtonOnClickHandler()
         {
-
-
+           
             Canrecord = true;
             _resultText.text = string.Empty;
 
             _speechRecognition.StartRecord(false);
+            SentenceMaker.sentenceMaker.alternativenames = new List<string>();
 
         }
 
         public void StopRecordButtonOnClickHandler()
         {
 
-            Canrecord = false;
+            //Canrecord = false;
             _startRecordButton.interactable = true;
         
 
@@ -205,7 +219,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
         private void StartedRecordEventHandler()
         {
-            _speechRecognitionState.color = Color.red;
+            _speechRecognitionState.color = Color.green;
         }
 
         private void RecordFailedEventHandler()
@@ -357,12 +371,15 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                 {
                     if (recognitionResponse.results[0].alternatives[0] != alternative)
                     {
+                        SentenceMaker.sentenceMaker.alternativenames.Add(alternative.transcript.ToUpper());
                         other += alternative.transcript + ", ";
+                        
                     }
                 }
             }
 
         //  _resultText.text += other;
+           
         }
 
 

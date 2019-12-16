@@ -16,6 +16,9 @@ public class SentenceMaker : MonoBehaviour
     public List<GameObject> outputobject = new List<GameObject>();
     public List<GameObject> typeparent = new List<GameObject>();
     public List<GameObject> newoutputobject = new List<GameObject>();
+    public List<Sprite> Diyasprite = new List<Sprite>();
+    public GameObject diyaobj;
+    public List<string> allnames = new List<string>();
     public Text voicetext;
     public Text wordsnotdetected;
 
@@ -31,6 +34,27 @@ public class SentenceMaker : MonoBehaviour
     public int whicverb;
     public int whichanimal;
     public List<Transform> outpurposition = new List<Transform>();
+    public string wordrecorded;
+    public bool iswordrecogonized;
+    public GameObject speechbubble;
+    public List<string> alternativenames=new List<string>();
+
+    public int index;
+
+
+
+
+    private void Start()
+    {
+        iswordrecogonized = true;
+        diyaobj.GetComponent<SpriteRenderer>().sprite = Diyasprite[2];
+        diyaobj.SetActive(true);
+        speechbubble.SetActive(true);
+        speechbubble.GetComponent<Text>().text = "Can you read the word you want?";
+
+    }
+
+
     public void AddWord(string word)
     {
         string detectedWord = word.Trim();
@@ -132,11 +156,12 @@ public class SentenceMaker : MonoBehaviour
     }
     private void Update()
     {
+        wordrecorded = voicetext.text;
         NewObjectAdd();
-        StartCoroutine("WaitSec");
-      
-       // whicverb = outputobject[3].GetComponent<OutputButton>().verbid;
-       
+        //   StartCoroutine("WaitSec");
+
+        // whicverb = outputobject[3].GetComponent<OutputButton>().verbid;
+    //    Samewords();
     }
    
 
@@ -146,10 +171,11 @@ public class SentenceMaker : MonoBehaviour
             return;
         if (isclicked||isvoicematched)
         {
-           
 
-
-                    refbutton.GetComponentInChildren<Text>().text = outputobject[outputobject.Count - 1].GetComponentInChildren<TextMeshProUGUI>().text;
+            if (newoutputobject.Count >= 3)
+                return;
+            Debug.Log("Issemtencemaking");
+            refbutton.GetComponentInChildren<Text>().text = outputobject[outputobject.Count - 1].GetComponentInChildren<TextMeshProUGUI>().text;
                     refbutton.GetComponentInChildren<Text>().color = outputobject[outputobject.Count - 1].GetComponent<Image>().color;
                   
                     refbutton.GetComponent<Image>().sprite = outputobject[outputobject.Count-1].GetComponent<Image>().sprite;
@@ -162,12 +188,11 @@ public class SentenceMaker : MonoBehaviour
             {
                 refbutton.AddComponent<OutputButton>();
             }
-            
+            Debug.Log("Issemtencemaking1");
             refbutton.GetComponent<Wordclick>().enabled = false;
                //     refbutton.GetComponent<Wordclick>().isinstantiated = outputobject[outputobject.Count - 1].GetComponent<Wordclick>().isinstantiated;
                     refbutton.name = outputobject[outputobject.Count - 1].name;
-            if (outputobject.Count > 3)
-                return;
+           
          
                 g = Instantiate(refbutton, outpurposition[outputobject.Count - 1].position,Quaternion.identity,refbuttonobjectparent.transform.parent);
                 newoutputobject.Add(g);
@@ -193,13 +218,68 @@ public class SentenceMaker : MonoBehaviour
     {
         Application.Quit();
     }
-    IEnumerator WaitSec()
+    /*  IEnumerator WaitSec()
+     {
+        if (wordsnotdetected.gameObject.activeInHierarchy)
+         {
+
+
+             wordsnotdetected.gameObject.SetActive(false);
+         }
+         if (SentenceMaker.sentenceMaker.voicetext.text == FindObjectOfType<VoiceFirstbutton>().value)
+                {
+                    Debug.Log(value);
+
+                    SentenceMaker.sentenceMaker.wordsnotdetected.text = "";
+                    SentenceMaker.sentenceMaker.wordsnotdetected.gameObject.SetActive(false);
+                }
+         }*/
+
+    public void Samewords()
     {
-        if (wordsnotdetected.text == "Words not detected.")
+
+
+        if (voicetext.text == "")
+            return;
+       voicetext.text = voicetext.text.ToUpper();
+
+        for (int i = 0; i < GameObject.FindGameObjectWithTag("Adjective").transform.childCount; i++)
         {
-            wordsnotdetected.text = "Words not detected.";
-           yield return new WaitForSeconds(2f);
-            wordsnotdetected.text = "";
+
+
+            if (GameObject.FindGameObjectWithTag("Adjective").transform.GetChild(i).GetComponentInChildren<TextMeshProUGUI>().text != voicetext.text)
+            {
+                Debug.Log(0);
+                iswordrecogonized = false;
+
+            }
         }
+        for (int j = 0; j < GameObject.FindGameObjectWithTag("Noun").transform.childCount; j++)
+        {
+            if (GameObject.FindGameObjectWithTag("Noun").transform.GetChild(j).GetComponentInChildren<TextMeshProUGUI>().text != voicetext.text)
+            {
+                Debug.Log(1);
+                iswordrecogonized = false;
+            }
+
+        }
+
+
+        for (int k = 0; k < GameObject.FindGameObjectWithTag("Verb").transform.childCount; k++)
+        {
+            if (GameObject.FindGameObjectWithTag("Verb").transform.GetChild(k).GetComponentInChildren<TextMeshProUGUI>().text != voicetext.text)
+            {
+                Debug.Log(2);
+                iswordrecogonized = false;
+            }
+
+
+        }
+
+            }
+        
+
+    
+
+
     }
-}

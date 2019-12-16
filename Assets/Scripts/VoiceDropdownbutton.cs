@@ -34,140 +34,159 @@ public class VoiceDropdownbutton : MonoBehaviour
     }
     void Voicetext()
     {
+
         if (SentenceMaker.sentenceMaker == null)
         {
             SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
         }
-
-        if (SentenceMaker.sentenceMaker.voicetext.text == "")
-            return;
-        if (SentenceMaker.sentenceMaker.voicetext.text == value)
+       
+            if (SentenceMaker.sentenceMaker.voicetext.text == "")
+                return;
+        if (SentenceMaker.sentenceMaker.alternativenames.Contains(this.gameObject.GetComponentInChildren<TextMeshProUGUI>().text))
         {
+            SentenceMaker.sentenceMaker.index = SentenceMaker.sentenceMaker.alternativenames.FindIndex(x => x == this.gameObject.GetComponentInChildren<TextMeshProUGUI>().text);
+            SentenceMaker.sentenceMaker.voicetext.text = SentenceMaker.sentenceMaker.alternativenames[SentenceMaker.sentenceMaker.index];
+        }
+        if (SentenceMaker.sentenceMaker.voicetext.text == value)
+            {
 
-            SentenceMaker.sentenceMaker.isvoicematched = true;
+                SentenceMaker.sentenceMaker.isvoicematched = true;
+
 
         }
+           
+            if (SentenceMaker.sentenceMaker.isvoicematched)
 
-        if (SentenceMaker.sentenceMaker.isvoicematched)
-
-        {
-            isvoice = true;
-            if (this.gameObject.tag == "Verb")
             {
-                type = 2;
-                if (SentenceMaker.sentenceMaker.voicetext.text == value)
+                isvoice = true;
+                if (this.gameObject.tag == "Verb")
                 {
-                    Debug.Log("Text");
-                    SentenceMaker.sentenceMaker.newoutputobject[2].GetComponentInChildren<Text>().text = value;
-                    SentenceMaker.sentenceMaker.newoutputobject[2].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                    type = 2;
+                    if (SentenceMaker.sentenceMaker.voicetext.text == value)
+                    {
+                        Debug.Log("Text");
+                        SentenceMaker.sentenceMaker.newoutputobject[2].GetComponentInChildren<Text>().text = value;
+                        SentenceMaker.sentenceMaker.newoutputobject[2].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                    SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color; ;
+                    SentenceMaker.sentenceMaker.whicverb = verbid;
+                    SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
                 }
-                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[type].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
-                /* SentenceMaker.sentenceMaker.isobject.SetActive(true);
-                 SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;*/
+                   
+                  
 
-            }
-            else if (this.gameObject.tag == "Adjective")
-            {
-                type = 0;
+                }
+                else if (this.gameObject.tag == "Adjective")
+                {
+                    type = 0;
                 // SentenceMaker.sentenceMaker.theobject.SetActive(true);
                 if (SentenceMaker.sentenceMaker.voicetext.text == value)
                 {
                     Debug.Log("Text");
-                    SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
-                    SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+
+
+                    switch (SentenceMaker.sentenceMaker.voicetext.text)
+                    {
+                        case "BLUE":
+                            Debug.Log("clicked");
+                            SentenceMaker.sentenceMaker._color = new Color(0, 255f, 255f);
+
+                            if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
+                            {
+
+                                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                            }
+
+
+                            break;
+
+                        case "GREEN":
+                            Debug.Log("clicked");
+                            SentenceMaker.sentenceMaker._color = new Color(0f, 255f, 0f);
+
+                            if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
+                            {
+
+                                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                            }
+
+                            break;
+
+                        case "YELLOW":
+                            Debug.Log("clicked");
+                            SentenceMaker.sentenceMaker._color = new Color(255f, 215f, 0f);
+
+                            if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
+                            {
+
+                                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                            }
+
+                            break;
+
+                        case "ORANGE":
+                            Debug.Log("clicked");
+                            SentenceMaker.sentenceMaker._color = new Color(258f, 141f, 0f);
+
+                            if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
+                            {
+
+                                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                            }
+
+                            break;
+
+                        case "PINK":
+                            Debug.Log("clicked");
+                            SentenceMaker.sentenceMaker._color = new Color(255f, 0f, 143f);
+
+                            if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
+                            {
+
+                                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                            }
+
+                            break;
+
+                        default:
+
+                            break;
+                    }
                 }
-                switch (SentenceMaker.sentenceMaker.voicetext.text)
+                }
+                else if (this.gameObject.tag == "Noun")
                 {
-                    case "BLUE":
-                        Debug.Log("clicked");
-                        SentenceMaker.sentenceMaker._color = new Color(0, 255f, 255f);
-                        SentenceMaker.sentenceMaker.colorImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                        if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
-                        {
-                            SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                            SentenceMaker.sentenceMaker.nounImg.SetActive(false);
-                        }
-                        SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-
-                        break;
-
-                    case "GREEN":
-                        Debug.Log("clicked");
-                        SentenceMaker.sentenceMaker._color = new Color(0f, 255f, 0f);
-                        SentenceMaker.sentenceMaker.colorImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                        if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
-                        {
-                            SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                            SentenceMaker.sentenceMaker.nounImg.SetActive(false);
-                        }
-                        SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                        break;
-
-                    case "YELLOW":
-                        Debug.Log("clicked");
-                        SentenceMaker.sentenceMaker._color = new Color(255f, 215f, 0f);
-                        SentenceMaker.sentenceMaker.colorImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                        if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
-                        {
-                            SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                            SentenceMaker.sentenceMaker.nounImg.SetActive(false);
-                        }
-                        SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                        break;
-
-                    case "ORANGE":
-                        Debug.Log("clicked");
-                        SentenceMaker.sentenceMaker._color = new Color(258f, 141f, 0f);
-                        SentenceMaker.sentenceMaker.colorImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                        if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
-                        {
-                            SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                            SentenceMaker.sentenceMaker.nounImg.SetActive(false);
-                        }
-                        SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                        break;
-
-                    case "PINK":
-                        Debug.Log("clicked");
-                        SentenceMaker.sentenceMaker._color = new Color(255f, 0f, 143f);
-                        SentenceMaker.sentenceMaker.colorImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                        if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
-                        {
-                            SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                            SentenceMaker.sentenceMaker.nounImg.SetActive(false);
-                        }
-                        SentenceMaker.sentenceMaker.colorImg.SetActive(true);
-                        break;
-
-                    default:
-
-                        break;
+                    type = 1;
+                    if (SentenceMaker.sentenceMaker.voicetext.text == value)
+                    {
+                        Debug.Log("Text");
+                        SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
+                        SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                    SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[nounid].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
+                    SentenceMaker.sentenceMaker.whichanimal = nounid;
+                    SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color; ;
                 }
-            }
-            else if (this.gameObject.tag == "Noun")
-            {
-                type = 1;
-                if (SentenceMaker.sentenceMaker.voicetext.text == value)
-                {
-                    Debug.Log("Text");
-                    SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text =value;
-                    SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
-                }
-                if (SentenceMaker.sentenceMaker.colorImg.activeInHierarchy)
-                {
-                    SentenceMaker.sentenceMaker.colorImg.SetActive(false);
-                    SentenceMaker.sentenceMaker.nounImg.SetActive(true);
-                }
-                SentenceMaker.sentenceMaker.nounImg.SetActive(true);
-                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[nounid].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
-                SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.colorImg.GetComponent<Image>().color;
+                   
+                    
+                   
 
-            }
-       
+                }
+
+            SentenceMaker.sentenceMaker.isvoicematched = false;
             SentenceMaker.sentenceMaker.voicetext.text = "";
             this.gameObject.transform.parent.gameObject.SetActive(false);
-        }
 
+            
+        }
 
     }
    
@@ -175,8 +194,50 @@ public class VoiceDropdownbutton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-            Voicetext();
-          
+        if (SentenceMaker.sentenceMaker == null)
+        {
+            SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+        }
+
+        Voicetext();
+        if (!this.gameObject.activeInHierarchy)
+            return;
+      //  StartCoroutine("Notrecogonizedword");
+
+
+    }
+    IEnumerator Notrecogonizedword()
+
+    {
+        if (SentenceMaker.sentenceMaker.voicetext.text != "")
+        {
+            SentenceMaker.sentenceMaker.voicetext.text = SentenceMaker.sentenceMaker.voicetext.text.ToUpper();
+            if (SentenceMaker.sentenceMaker.voicetext.text !=value)
+            {
+                SentenceMaker.sentenceMaker.wordsnotdetected.gameObject.SetActive(true);
+                if (SentenceMaker.sentenceMaker.voicetext.text == "WORDS NOT DETECTED." && SentenceMaker.sentenceMaker.iswordrecogonized)
+                {
+                    SentenceMaker.sentenceMaker.wordsnotdetected.text = " WORDS NOT DETECTED";
+                    SentenceMaker.sentenceMaker.iswordrecogonized = false;
+                }
+                else if (SentenceMaker.sentenceMaker.voicetext.text == value)
+                {
+                    Debug.Log(value);
+                   // SentenceMaker.sentenceMaker.wordsnotdetected.text = "I Couldn't Understand You" + "\n I Detected the Word" + " " + SentenceMaker.sentenceMaker.voicetext.text + "\n Please try again with the word in the list" + "\n Can you read the word you want";
+                    SentenceMaker.sentenceMaker.iswordrecogonized = false;
+                }
+                    yield return new WaitForSeconds(2f);
+                SentenceMaker.sentenceMaker.wordsnotdetected.gameObject.SetActive(false);
+                SentenceMaker.sentenceMaker.voicetext.text = "";
+                SentenceMaker.sentenceMaker.wordsnotdetected.text = "";
+
+            }else
+            {
+                SentenceMaker.sentenceMaker.wordsnotdetected.gameObject.SetActive(false);
+               
+
+            }
+        }
+
     }
 }

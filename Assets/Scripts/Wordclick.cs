@@ -14,7 +14,10 @@ public class Wordclick : MonoBehaviour
     public int verbid;
     private void Start()
     {
-       
+        if (SentenceMaker.sentenceMaker == null)
+        {
+            SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+        }
         this.gameObject.GetComponent<Button>().onClick.AddListener(AddClicked);
 
         if (this.gameObject.tag == "Verb")
@@ -32,6 +35,7 @@ public class Wordclick : MonoBehaviour
             type = 0;
            
         }
+      
     }
 
 
@@ -98,6 +102,7 @@ public class Wordclick : MonoBehaviour
          
             this.gameObject.GetComponent<Button>().onClick.AddListener(Changinginplay);
         }
+      
     }
 
     void Dropdown()
@@ -116,4 +121,8 @@ public class Wordclick : MonoBehaviour
             }
         }
     }
+
+
+   
+    
 }

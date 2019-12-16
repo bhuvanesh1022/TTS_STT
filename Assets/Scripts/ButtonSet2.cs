@@ -17,7 +17,8 @@ public class ButtonSet2 : MonoBehaviour
         }
         //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.nounSprites[whichplace];
         SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = this.gameObject.GetComponent<Image>().color;
-        this.gameObject.transform.parent.gameObject.SetActive(false);
+        SentenceMaker.sentenceMaker._color = this.gameObject.GetComponent<Image>().color;
+     this.gameObject.transform.parent.gameObject.SetActive(false);
     }
 
 
@@ -32,6 +33,7 @@ public class ButtonSet2 : MonoBehaviour
         }
         SentenceMaker.sentenceMaker. whichanimal = verbid;
         SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
+     
         //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color;
         this.gameObject.transform.parent.gameObject.SetActive(false);
     }
@@ -49,10 +51,16 @@ public class ButtonSet2 : MonoBehaviour
             SentenceMaker.sentenceMaker. colorImg.SetActive(false);
             SentenceMaker.sentenceMaker. nounImg.SetActive(true);
         }
+     
         SentenceMaker.sentenceMaker. nounImg.SetActive(true);
         SentenceMaker.sentenceMaker. nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker. verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
         this.gameObject.transform.parent.gameObject.SetActive(false);
-    }
    
+    }
+    private void Update()
+    {
+       
+    }
+
 
 }
