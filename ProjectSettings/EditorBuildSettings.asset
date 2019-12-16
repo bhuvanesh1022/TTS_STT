@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SentenceCreator duplicate.unity
+    guid: 1327c7b76ef73e2449d903064387a074
   m_configObjects: {}

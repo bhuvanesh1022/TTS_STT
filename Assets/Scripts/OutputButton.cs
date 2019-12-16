@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class OutputButton : MonoBehaviour
 {
@@ -29,11 +30,12 @@ public class OutputButton : MonoBehaviour
         {
             this.gameObject.GetComponent<Button>().onClick.AddListener(delegate { Dropdownfn(this.gameObject.GetComponent<Wordclick>().type); });
         }
+     //   Samewords();
     }
     // Start is called before the first frame update
     public void Dropdownfn(int type)
     {
-        if (SentenceMaker.sentenceMaker.newoutputobject.Count == 3)
+        if (SentenceMaker.sentenceMaker.newoutputobject.Count >= 3)
         {
 
             type = this.gameObject.GetComponent<Wordclick>().type; 
@@ -42,6 +44,7 @@ public class OutputButton : MonoBehaviour
             {
                 case 0:
                     SentenceMaker.sentenceMaker.typeparent[0].SetActive(true);
+                   
                     SentenceMaker.sentenceMaker.typeparent[1].SetActive(false);
                     SentenceMaker.sentenceMaker.typeparent[2].SetActive(false);
                     break;
@@ -59,5 +62,51 @@ public class OutputButton : MonoBehaviour
 
             }
         }
+    }
+
+    public void Samewords()
+    {
+        if (SentenceMaker.sentenceMaker.newoutputobject.Count >= 3)
+        {
+
+           int w = this.gameObject.GetComponent<Wordclick>().type;
+         
+            switch (w)
+            {
+                case 0:
+                  
+                  if(SentenceMaker.sentenceMaker.typeparent[0].transform.GetChild(GetComponent<ButtonSet2>().whichplace).GetComponentInChildren<TextMeshProUGUI>().text != SentenceMaker.sentenceMaker.voicetext.text)
+                    {
+
+                        SentenceMaker.sentenceMaker.iswordrecogonized = false;
+                    }
+                   
+                    break;
+                case 1:
+
+                    if (SentenceMaker.sentenceMaker.typeparent[1].transform.GetChild(GetComponent<ButtonSet2>().whichplace).GetComponentInChildren<TextMeshProUGUI>().text != SentenceMaker.sentenceMaker.voicetext.text)
+                    {
+
+                        SentenceMaker.sentenceMaker.iswordrecogonized = false;
+                    }
+
+
+                    break;
+                case 2:
+
+                    if (SentenceMaker.sentenceMaker.typeparent[2].transform.GetChild(GetComponent<ButtonSet2>().whichplace).GetComponentInChildren<TextMeshProUGUI>().text != SentenceMaker.sentenceMaker.voicetext.text)
+                    {
+
+                        SentenceMaker.sentenceMaker.iswordrecogonized = false;
+                    }
+
+                    break;
+
+
+            }
+        }
+
+
+
     }
 }
