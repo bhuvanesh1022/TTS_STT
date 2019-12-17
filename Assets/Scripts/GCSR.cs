@@ -127,7 +127,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                     SentenceMaker.sentenceMaker.isrecording = true;
                     maxseconds = 3f;
                     SentenceMaker.sentenceMaker.isrecorded = false;
-                   
+                    _startRecordButton.gameObject.SetActive(true);
                 }
               
             }
@@ -191,8 +191,8 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
             //Canrecord = false;
             _startRecordButton.interactable = true;
-        
 
+            _startRecordButton.gameObject.SetActive(true);
             _speechRecognition.StopRecord();
            
 
@@ -320,6 +320,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                 foreach (var item in operationsResponse.operations)
                 {
                     _resultText.text += item.name;
+                    _startRecordButton.gameObject.SetActive(true);
                 }
             }
         }

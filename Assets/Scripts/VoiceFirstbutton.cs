@@ -41,7 +41,7 @@ void Start()
         {
             SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
             SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
-            SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "I Could not understand."+"\nPlease try again.";
+            SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "I'm sorry, I didn't really understand that." + "\n Try again?.";
 
         }
         if (SentenceMaker.sentenceMaker.voicetext.text == value)
@@ -50,8 +50,9 @@ void Start()
             SentenceMaker.sentenceMaker.isvoicematched = true;
             
                 Debug.Log("word");
-                SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
-                SentenceMaker.sentenceMaker.speechbubble.SetActive(false);
+            SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
+            SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "Great Now READ the next word you want.";
+                SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
            
         }
        

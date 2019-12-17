@@ -42,6 +42,7 @@ public class SentenceMaker : MonoBehaviour
     public int index;
     public bool isrecorded;
     public bool isrecording;
+    public bool isdropdownopen;
 
     public bool isinstantiated;
 
@@ -52,7 +53,7 @@ public class SentenceMaker : MonoBehaviour
         diyaobj.GetComponent<Image>().sprite = Diyasprite[2];
         diyaobj.SetActive(true);
         speechbubble.SetActive(true);
-        speechbubble.GetComponentInChildren<Text>().text = "Can you read the word you want ?.";
+        speechbubble.GetComponentInChildren<Text>().text = "Go on - READ the word you want to choose";
 
     }
 
@@ -224,23 +225,7 @@ public class SentenceMaker : MonoBehaviour
     {
         Application.Quit();
     }
-    /*  IEnumerator WaitSec()
-     {
-        if (wordsnotdetected.gameObject.activeInHierarchy)
-         {
-
-
-             wordsnotdetected.gameObject.SetActive(false);
-         }
-         if (SentenceMaker.sentenceMaker.voicetext.text == FindObjectOfType<VoiceFirstbutton>().value)
-                {
-                    Debug.Log(value);
-
-                    SentenceMaker.sentenceMaker.wordsnotdetected.text = "";
-                    SentenceMaker.sentenceMaker.wordsnotdetected.gameObject.SetActive(false);
-                }
-         }*/
-
+   
     public void Samewords()
     {
 
@@ -281,6 +266,8 @@ public class SentenceMaker : MonoBehaviour
 
 
         }
+
+       
 
             }
         
