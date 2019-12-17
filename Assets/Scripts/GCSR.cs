@@ -116,14 +116,20 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             }
             if (Canrecord)
             {
+                _startRecordButton.gameObject.SetActive(false);
                 maxseconds -= Time.deltaTime;
-              //  StartRecordButtonOnClickHandler();
+                SentenceMaker.sentenceMaker.isrecorded = true;
+                //  StartRecordButtonOnClickHandler();
                 if (maxseconds <= 0)
                 {
-                    StopRecordButtonOnClickHandler();
                     Canrecord = false;
-                    maxseconds = 5f;
+                    StopRecordButtonOnClickHandler();
+                    SentenceMaker.sentenceMaker.isrecording = true;
+                    maxseconds = 3f;
+                    SentenceMaker.sentenceMaker.isrecorded = false;
+                   
                 }
+              
             }
             _resultText.text.ToUpper();
             _contextPhrasesInputField.GetComponentInChildren<Text>().text = _resultText.text;
@@ -132,9 +138,9 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             SentenceMaker.sentenceMaker.voicetext.text =_resultText.text.ToUpper();
             //SentenceMaker.sentenceMaker.voicetext.text;
             SentenceMaker.sentenceMaker.voicetext.text=  SentenceMaker.sentenceMaker.voicetext.text.Trim();
+            
 
-
-            if (_speechRecognition.IsRecording)
+                if (_speechRecognition.IsRecording)
             {
                 if (_speechRecognition.GetMaxFrame() > 0)
                 {
@@ -169,13 +175,15 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
         public void StartRecordButtonOnClickHandler()
         {
-           
+            SentenceMaker.sentenceMaker.isrecording = false;
             Canrecord = true;
+            SentenceMaker.sentenceMaker.isinstantiated = false;
             _resultText.text = string.Empty;
 
             _speechRecognition.StartRecord(false);
             SentenceMaker.sentenceMaker.alternativenames = new List<string>();
-
+            SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[1];
+            SentenceMaker.sentenceMaker.speechbubble.SetActive(false);
         }
 
         public void StopRecordButtonOnClickHandler()
@@ -186,6 +194,8 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
         
 
             _speechRecognition.StopRecord();
+           
+
         }
 
    
@@ -241,6 +251,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             //_resultText.text += "\n<color=blue>Talk Ended.</color>";
 
             FinishedRecordEventHandler(clip);
+            SentenceMaker.sentenceMaker.isrecording = false;
         }
 
         private void FinishedRecordEventHandler(AudioClip clip)
@@ -328,6 +339,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
         {
             //_resultText.text = "Recognize Success.";
             InsertRecognitionResponseInfo(recognitionResponse);
+           
         }
 
 
@@ -337,8 +349,13 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             {
                 _resultText.text = "Words not detected.";
                 SentenceMaker.sentenceMaker.wordsnotdetected.text = "Words not detected.";
-
+                Debug.Log("word");
+                SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[2];
+                SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
+                SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = " I Could not understand." + "\n Please try again.";
+                _startRecordButton.gameObject.SetActive(true);
                 return;
+
             }
 
             //_resultText.text += "\n" + recognitionResponse.results[0].alternatives[0].transcript;
@@ -373,7 +390,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                     {
                         SentenceMaker.sentenceMaker.alternativenames.Add(alternative.transcript.ToUpper());
                         other += alternative.transcript + ", ";
-                        
+                        _startRecordButton.gameObject.SetActive(true);
                     }
                 }
             }

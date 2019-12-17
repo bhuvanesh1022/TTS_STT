@@ -47,15 +47,25 @@ public class VoiceDropdownbutton : MonoBehaviour
             SentenceMaker.sentenceMaker.index = SentenceMaker.sentenceMaker.alternativenames.FindIndex(x => x == this.gameObject.GetComponentInChildren<TextMeshProUGUI>().text);
             SentenceMaker.sentenceMaker.voicetext.text = SentenceMaker.sentenceMaker.alternativenames[SentenceMaker.sentenceMaker.index];
         }
-        if (SentenceMaker.sentenceMaker.voicetext.text == value)
-            {
-
-                SentenceMaker.sentenceMaker.isvoicematched = true;
-
+        if (!SentenceMaker.sentenceMaker.isinstantiated && SentenceMaker.sentenceMaker.wordrecorded != "" && SentenceMaker.sentenceMaker.wordrecorded != "WORDS NOT DETECTED.")
+        {
+            SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
+            SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
+            SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "I Could not understand." + "\nPlease try again.";
 
         }
-           
-            if (SentenceMaker.sentenceMaker.isvoicematched)
+        if (SentenceMaker.sentenceMaker.voicetext.text == value)
+        {
+
+            SentenceMaker.sentenceMaker.isvoicematched = true;
+        
+            Debug.Log("word");
+            SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
+            SentenceMaker.sentenceMaker.speechbubble.SetActive(false);
+
+        }
+
+        if (SentenceMaker.sentenceMaker.isvoicematched)
 
             {
                 isvoice = true;
