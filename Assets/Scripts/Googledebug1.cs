@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 {
-    public class GCSR : MonoBehaviour
+    public class Googledebug1 : MonoBehaviour
     {
         private GCSpeechRecognition _speechRecognition;
 
@@ -112,58 +112,15 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
         private void Update()
         {
-            if (SentenceMaker.sentenceMaker == null)
-            {
-                SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
-            }
-
-            if (SentenceMaker.sentenceMaker.isstartrecord)
-            {
-
-                SentenceMaker.sentenceMaker.startseconds -= Time.deltaTime;
-                if (SentenceMaker.sentenceMaker.startseconds < 0)
-                {
-                    StartRecordButtonOnClickHandler();
-                    SentenceMaker.sentenceMaker.isstartrecord = false;
-                    //  SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[1];
-                    // SentenceMaker.sentenceMaker.speechbubble.SetActive(false);
-                    SentenceMaker.sentenceMaker.startseconds = 0;
-                    Canrecord = true;
-                    SentenceMaker.sentenceMaker.speechbubble.SetActive(false);
-                    SentenceMaker.sentenceMaker. maxseconds = 3;
-                }
-            }
-
-            if (Canrecord)
-            {
-             
-                _startRecordButton.gameObject.SetActive(false);
-                SentenceMaker.sentenceMaker.maxseconds -= Time.deltaTime;
-                SentenceMaker.sentenceMaker.isrecorded = true;
-                SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[1];
-                if (SentenceMaker.sentenceMaker.maxseconds <= 0)
-                {
-                    SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[1];
-                    Canrecord = false;
-                   
-                    SentenceMaker.sentenceMaker.isrecording = true;
-                    SentenceMaker.sentenceMaker.maxseconds = 0;
-                    SentenceMaker.sentenceMaker.isrecorded = false;
-                   // _startRecordButton.gameObject.SetActive(true);
-
-                    
-                    StopRecordButtonOnClickHandler();
-                }
-              
-            }
+           
+           
             _resultText.text.ToUpper();
             _contextPhrasesInputField.GetComponentInChildren<Text>().text = _resultText.text;
            
            
-            SentenceMaker.sentenceMaker.voicetext.text =_resultText.text.ToUpper();
+           
             //SentenceMaker.sentenceMaker.voicetext.text;
-            SentenceMaker.sentenceMaker.voicetext.text=  SentenceMaker.sentenceMaker.voicetext.text.Trim();
-            
+           
 
                 if (_speechRecognition.IsRecording)
                 {
@@ -200,15 +157,12 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
 
         public void StartRecordButtonOnClickHandler()
         {
-            SentenceMaker.sentenceMaker.isrecording = false;
-         //   Canrecord = true;
-            SentenceMaker.sentenceMaker.isinstantiated = false;
+
+            Debug.Log("1");
             _resultText.text = string.Empty;
 
             _speechRecognition.StartRecord(false);
-            SentenceMaker.sentenceMaker.alternativenames = new List<string>();
-            SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[1];
-            SentenceMaker.sentenceMaker.speechbubble.SetActive(false);
+         
         }
 
         public void StopRecordButtonOnClickHandler()
@@ -219,7 +173,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             _startRecordButton.interactable = true;
          //   _startRecordButton.gameObject.SetActive(true);
             _speechRecognition.StopRecord();
-            SentenceMaker.sentenceMaker.startseconds = 2f;
+          
 
         }
 
@@ -276,7 +230,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             //_resultText.text += "\n<color=blue>Talk Ended.</color>";
 
             FinishedRecordEventHandler(clip);
-            SentenceMaker.sentenceMaker.isrecording = false;
+          
         }
 
         private void FinishedRecordEventHandler(AudioClip clip)
@@ -374,12 +328,9 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
             if (recognitionResponse == null || recognitionResponse.results.Length == 0)
             {
                 _resultText.text = "Words not detected.";
-                SentenceMaker.sentenceMaker.wordsnotdetected.text = "Words not detected.";
+          
                 Debug.Log("word");
-                SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[2];
-                SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
-                SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = " I Could not understand." + "\n Please try again.";
-
+           
              //   _startRecordButton.gameObject.SetActive(true);
                 return;
 
@@ -415,7 +366,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.SpeechRecognition.Examples
                 {
                     if (recognitionResponse.results[0].alternatives[0] != alternative)
                     {
-                        SentenceMaker.sentenceMaker.alternativenames.Add(alternative.transcript.ToUpper());
+                      
                         other += alternative.transcript + ", ";
                        // _startRecordButton.gameObject.SetActive(true);
                     }
