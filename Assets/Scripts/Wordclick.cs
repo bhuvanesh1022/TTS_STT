@@ -41,33 +41,35 @@ public class Wordclick : MonoBehaviour
 
     void AddClicked()
     {
-      
-       
-        if (!caninstantiate)
+
+        if (!SentenceMaker.sentenceMaker.isrecorded)
         {
-            if (SentenceMaker.sentenceMaker == null)
+            if (!caninstantiate)
             {
-                SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
-            }
-            SentenceMaker.sentenceMaker.isclicked = true;
-            //  isinstantiated = true;
-            caninstantiate = true;
-           
-            SentenceMaker.sentenceMaker.outputobject.Add(this.gameObject);
-            if (this.gameObject.tag == "Verb")
-            {
-                type = 2;
-                SentenceMaker.sentenceMaker.isobject.SetActive(true);
-            }
-            else if (this.gameObject.tag == "Noun")
-            {
-                type = 1;
-             
-            }
-            else if (this.gameObject.tag == "Adjective")
-            {
-                type = 0;
-                SentenceMaker.sentenceMaker.theobject.SetActive(true);
+                if (SentenceMaker.sentenceMaker == null)
+                {
+                    SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+                }
+                SentenceMaker.sentenceMaker.isclicked = true;
+                //  isinstantiated = true;
+                caninstantiate = true;
+
+                SentenceMaker.sentenceMaker.outputobject.Add(this.gameObject);
+                if (this.gameObject.tag == "Verb")
+                {
+                    type = 2;
+                    SentenceMaker.sentenceMaker.isobject.SetActive(true);
+                }
+                else if (this.gameObject.tag == "Noun")
+                {
+                    type = 1;
+
+                }
+                else if (this.gameObject.tag == "Adjective")
+                {
+                    type = 0;
+                    SentenceMaker.sentenceMaker.theobject.SetActive(true);
+                }
             }
         }
     }

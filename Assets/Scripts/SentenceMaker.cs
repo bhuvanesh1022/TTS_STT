@@ -38,96 +38,102 @@ public class SentenceMaker : MonoBehaviour
     public bool iswordrecogonized;
     public GameObject speechbubble;
     public List<string> alternativenames=new List<string>();
-
+    public bool notanyofword;
     public int index;
+    public bool isrecorded;
+    public bool isrecording;
+    public bool isdropdownopen;
 
-
+    public bool isinstantiated;
 
 
     private void Start()
     {
         iswordrecogonized = true;
-        diyaobj.GetComponent<SpriteRenderer>().sprite = Diyasprite[2];
+        diyaobj.GetComponent<Image>().sprite = Diyasprite[2];
         diyaobj.SetActive(true);
         speechbubble.SetActive(true);
-        speechbubble.GetComponent<Text>().text = "Can you read the word you want?";
+        speechbubble.GetComponentInChildren<Text>().text = "Go on - READ the word you want to choose";
 
     }
 
 
     public void AddWord(string word)
     {
-        string detectedWord = word.Trim();
-
-        words = detectedWord;
-       
-        switch (detectedWord)
+        if (!isrecorded)
         {
-            case "Blue":
-                Debug.Log("clicked");
-                _color = new Color(0, 255f, 255f);
-                colorImg.GetComponent<Image>().color = _color;
-                if (nounImg.activeInHierarchy)
-                {
-                    colorImg.SetActive(true);
-                    nounImg.SetActive(false);
-                }
-                colorImg.SetActive(true);
-                break;
+            string detectedWord = word.Trim();
 
-            case "Green":
-                Debug.Log("clicked");
-                _color = new Color(0f, 255f,0f);
-                colorImg.GetComponent<Image>().color = _color;
-                if (nounImg.activeInHierarchy)
-                {
-                    colorImg.SetActive(true);
-                    nounImg.SetActive(false);
-                }
-                colorImg.SetActive(true);
-                break;
+            words = detectedWord;
 
-            case "Yellow":
-                Debug.Log("clicked");
-                _color = new Color(255f, 215f, 0f);
-                colorImg.GetComponent<Image>().color = _color;
-                if (nounImg.activeInHierarchy)
-                {
+            switch (detectedWord)
+            {
+                case "Blue":
+                    Debug.Log("clicked");
+                    _color = new Color(0, 255f, 255f);
+                    colorImg.GetComponent<Image>().color = _color;
+                    if (nounImg.activeInHierarchy)
+                    {
+                        colorImg.SetActive(true);
+                        nounImg.SetActive(false);
+                    }
                     colorImg.SetActive(true);
-                    nounImg.SetActive(false);
-                }
-                colorImg.SetActive(true);
-                break;
+                    break;
 
-            case "Orange":
-                Debug.Log("clicked");
-                _color = new Color(258f, 141f, 0f);
-                colorImg.GetComponent<Image>().color = _color;
-                if (nounImg.activeInHierarchy)
-                {
+                case "Green":
+                    Debug.Log("clicked");
+                    _color = new Color(0f, 255f, 0f);
+                    colorImg.GetComponent<Image>().color = _color;
+                    if (nounImg.activeInHierarchy)
+                    {
+                        colorImg.SetActive(true);
+                        nounImg.SetActive(false);
+                    }
                     colorImg.SetActive(true);
-                    nounImg.SetActive(false);
-                }
-                colorImg.SetActive(true);
-                break;
+                    break;
 
-            case "Pink":
-                Debug.Log("clicked");
-                _color = new Color(255f, 0f, 143f);
-                colorImg.GetComponent<Image>().color = _color;
-                if (nounImg.activeInHierarchy)
-                {
+                case "Yellow":
+                    Debug.Log("clicked");
+                    _color = new Color(255f, 215f, 0f);
+                    colorImg.GetComponent<Image>().color = _color;
+                    if (nounImg.activeInHierarchy)
+                    {
+                        colorImg.SetActive(true);
+                        nounImg.SetActive(false);
+                    }
                     colorImg.SetActive(true);
-                    nounImg.SetActive(false);
-                }
-                colorImg.SetActive(true);
-                break;
+                    break;
+
+                case "Orange":
+                    Debug.Log("clicked");
+                    _color = new Color(258f, 141f, 0f);
+                    colorImg.GetComponent<Image>().color = _color;
+                    if (nounImg.activeInHierarchy)
+                    {
+                        colorImg.SetActive(true);
+                        nounImg.SetActive(false);
+                    }
+                    colorImg.SetActive(true);
+                    break;
+
+                case "Pink":
+                    Debug.Log("clicked");
+                    _color = new Color(255f, 0f, 143f);
+                    colorImg.GetComponent<Image>().color = _color;
+                    if (nounImg.activeInHierarchy)
+                    {
+                        colorImg.SetActive(true);
+                        nounImg.SetActive(false);
+                    }
+                    colorImg.SetActive(true);
+                    break;
 
                 default:
-                colorImg.GetComponent<Image>().color = Color.white;
-                break;
+                    colorImg.GetComponent<Image>().color = Color.white;
+                    break;
+            }
+            GameObject.Find(detectedWord).transform.parent.gameObject.SetActive(false);
         }
-        GameObject.Find(detectedWord).transform.parent.gameObject.SetActive(false);
     }
    
 
@@ -158,6 +164,7 @@ public class SentenceMaker : MonoBehaviour
     {
         wordrecorded = voicetext.text;
         NewObjectAdd();
+      
         //   StartCoroutine("WaitSec");
 
         // whicverb = outputobject[3].GetComponent<OutputButton>().verbid;
@@ -169,9 +176,9 @@ public class SentenceMaker : MonoBehaviour
     {
         if (outputobject.Count<=0 )
             return;
-        if (isclicked||isvoicematched)
+        if ((isclicked&&!isrecorded)||isvoicematched)
         {
-
+          
             if (newoutputobject.Count >= 3)
                 return;
             Debug.Log("Issemtencemaking");
@@ -196,15 +203,15 @@ public class SentenceMaker : MonoBehaviour
          
                 g = Instantiate(refbutton, outpurposition[outputobject.Count - 1].position,Quaternion.identity,refbuttonobjectparent.transform.parent);
                 newoutputobject.Add(g);
-            
+            isinstantiated = true;
                  
 
             isvoicematched = false;
        
           isclicked = false;
-          
+
         }
-      
+       
         
     }
    
@@ -218,23 +225,7 @@ public class SentenceMaker : MonoBehaviour
     {
         Application.Quit();
     }
-    /*  IEnumerator WaitSec()
-     {
-        if (wordsnotdetected.gameObject.activeInHierarchy)
-         {
-
-
-             wordsnotdetected.gameObject.SetActive(false);
-         }
-         if (SentenceMaker.sentenceMaker.voicetext.text == FindObjectOfType<VoiceFirstbutton>().value)
-                {
-                    Debug.Log(value);
-
-                    SentenceMaker.sentenceMaker.wordsnotdetected.text = "";
-                    SentenceMaker.sentenceMaker.wordsnotdetected.gameObject.SetActive(false);
-                }
-         }*/
-
+   
     public void Samewords()
     {
 
@@ -275,6 +266,8 @@ public class SentenceMaker : MonoBehaviour
 
 
         }
+
+       
 
             }
         

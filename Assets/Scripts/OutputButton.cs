@@ -30,7 +30,7 @@ public class OutputButton : MonoBehaviour
         {
             this.gameObject.GetComponent<Button>().onClick.AddListener(delegate { Dropdownfn(this.gameObject.GetComponent<Wordclick>().type); });
         }
-     //   Samewords();
+      Samewords();
     }
     // Start is called before the first frame update
     public void Dropdownfn(int type)
@@ -38,22 +38,27 @@ public class OutputButton : MonoBehaviour
         if (SentenceMaker.sentenceMaker.newoutputobject.Count >= 3)
         {
 
-            type = this.gameObject.GetComponent<Wordclick>().type; 
+            SentenceMaker.sentenceMaker.isdropdownopen = true;
+
+              type = this.gameObject.GetComponent<Wordclick>().type; 
             wordtype = type;
             switch (type)
-            {
+            {  
                 case 0:
+                    SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "Go on - READ the word you want to choose";
                     SentenceMaker.sentenceMaker.typeparent[0].SetActive(true);
                    
                     SentenceMaker.sentenceMaker.typeparent[1].SetActive(false);
                     SentenceMaker.sentenceMaker.typeparent[2].SetActive(false);
                     break;
                 case 1:
+                    SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "Go on - READ the word you want to choose";
                     SentenceMaker.sentenceMaker.typeparent[0].SetActive(false);
                     SentenceMaker.sentenceMaker.typeparent[1].SetActive(true);
                     SentenceMaker.sentenceMaker.typeparent[2].SetActive(false);
                     break;
                 case 2:
+                    SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "Go on - READ the word you want to choose";
                     SentenceMaker.sentenceMaker.typeparent[0].SetActive(false);
                     SentenceMaker.sentenceMaker.typeparent[1].SetActive(false);
                     SentenceMaker.sentenceMaker.typeparent[2].SetActive(true);
@@ -66,10 +71,11 @@ public class OutputButton : MonoBehaviour
 
     public void Samewords()
     {
-        if (SentenceMaker.sentenceMaker.newoutputobject.Count >= 3)
+        if (SentenceMaker.sentenceMaker.newoutputobject.Count >= 3 && !SentenceMaker.sentenceMaker.isdropdownopen)
         {
-
-           int w = this.gameObject.GetComponent<Wordclick>().type;
+            SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
+            SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "Awesome. Did you know you can CHANGE any of your choices by TAPPING on them? Go ahead, try it.";
+        /*    int w = this.gameObject.GetComponent<Wordclick>().type;
          
             switch (w)
             {
@@ -103,7 +109,7 @@ public class OutputButton : MonoBehaviour
                     break;
 
 
-            }
+            }*/
         }
 
 
