@@ -49,18 +49,22 @@ public class VoiceDropdownbutton : MonoBehaviour
         }
         if (!SentenceMaker.sentenceMaker.isinstantiated && SentenceMaker.sentenceMaker.wordrecorded != "" && SentenceMaker.sentenceMaker.wordrecorded != "WORDS NOT DETECTED.")
         {
+            Debug.Log("Is insatntiated");
+            SentenceMaker.sentenceMaker.isinstantiated = true;
             SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
             SentenceMaker.sentenceMaker.speechbubble.SetActive(true);
             SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "I'm sorry, I didn't really understand that." + "\n Try again?.";
-
+            SentenceMaker.sentenceMaker.isstartrecord = true;
+            SentenceMaker.sentenceMaker.startseconds = 2f;
         }
         if (SentenceMaker.sentenceMaker.voicetext.text == value)
         {
 
             SentenceMaker.sentenceMaker.isvoicematched = true;
-        
+           SentenceMaker.sentenceMaker.isstartrecord = false;
             Debug.Log("word");
-            SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
+         //   SentenceMaker.sentenceMaker.diyaobj.SetActive(false);
+           // SentenceMaker.sentenceMaker.diyaobj.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.Diyasprite[0];
             SentenceMaker.sentenceMaker.speechbubble.GetComponentInChildren<Text>().text = "Awesome. Did you know you can CHANGE any of your choices by TAPPING on them? Go ahead, try it.";
 
         }
@@ -68,6 +72,7 @@ public class VoiceDropdownbutton : MonoBehaviour
         if (SentenceMaker.sentenceMaker.isvoicematched)
 
             {
+            SentenceMaker.sentenceMaker.isinstantiated = true;
                 isvoice = true;
                 if (this.gameObject.tag == "Verb")
                 {
@@ -104,8 +109,8 @@ public class VoiceDropdownbutton : MonoBehaviour
                             {
 
                                 SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
                             }
 
 
@@ -119,8 +124,8 @@ public class VoiceDropdownbutton : MonoBehaviour
                             {
 
                                 SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
                             }
 
                             break;
@@ -133,22 +138,22 @@ public class VoiceDropdownbutton : MonoBehaviour
                             {
 
                                 SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
                             }
 
                             break;
 
                         case "ORANGE":
                             Debug.Log("clicked");
-                            SentenceMaker.sentenceMaker._color = new Color(258f, 141f, 0f);
+                            SentenceMaker.sentenceMaker._color = new Color(255f, 125f, 0f);
 
                             if (SentenceMaker.sentenceMaker.nounImg.activeInHierarchy)
                             {
 
                                 SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
                             }
 
                             break;
@@ -161,8 +166,8 @@ public class VoiceDropdownbutton : MonoBehaviour
                             {
 
                                 SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
-                                SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
+                                SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
                             }
 
                             break;
@@ -179,8 +184,8 @@ public class VoiceDropdownbutton : MonoBehaviour
                     if (SentenceMaker.sentenceMaker.voicetext.text == value)
                     {
                         Debug.Log("Text");
-                        SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().text = value;
-                        SentenceMaker.sentenceMaker.newoutputobject[1].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
+                        SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().text = value;
+                        SentenceMaker.sentenceMaker.newoutputobject[0].GetComponentInChildren<Text>().color = this.gameObject.GetComponent<Image>().color;
                     SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[nounid].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
                     SentenceMaker.sentenceMaker.whichanimal = nounid;
                     SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker._color; ;

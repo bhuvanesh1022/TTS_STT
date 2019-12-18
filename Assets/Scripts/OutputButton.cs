@@ -42,6 +42,8 @@ public class OutputButton : MonoBehaviour
 
               type = this.gameObject.GetComponent<Wordclick>().type; 
             wordtype = type;
+            SentenceMaker.sentenceMaker.isstartrecord = true;
+            SentenceMaker.sentenceMaker.startseconds = 1.5f;
             switch (type)
             {  
                 case 0:

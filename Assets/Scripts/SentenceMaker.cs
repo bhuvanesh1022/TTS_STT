@@ -45,8 +45,10 @@ public class SentenceMaker : MonoBehaviour
     public bool isdropdownopen;
 
     public bool isinstantiated;
-
-
+    public bool isstartrecord;
+    public float startseconds;
+    public float maxseconds;
+    public int whichpos;
     private void Start()
     {
         iswordrecogonized = true;
@@ -54,7 +56,7 @@ public class SentenceMaker : MonoBehaviour
         diyaobj.SetActive(true);
         speechbubble.SetActive(true);
         speechbubble.GetComponentInChildren<Text>().text = "Go on - READ the word you want to choose";
-
+        isstartrecord = true;
     }
 
 
@@ -62,6 +64,7 @@ public class SentenceMaker : MonoBehaviour
     {
         if (!isrecorded)
         {
+            whichpos = 0;
             string detectedWord = word.Trim();
 
             words = detectedWord;
@@ -71,61 +74,39 @@ public class SentenceMaker : MonoBehaviour
                 case "Blue":
                     Debug.Log("clicked");
                     _color = new Color(0, 255f, 255f);
-                    colorImg.GetComponent<Image>().color = _color;
-                    if (nounImg.activeInHierarchy)
-                    {
-                        colorImg.SetActive(true);
-                        nounImg.SetActive(false);
-                    }
-                    colorImg.SetActive(true);
+                   // colorImg.GetComponent<Image>().color = _color;
+                    nounImg.GetComponent<Image>().color = _color;
                     break;
 
                 case "Green":
                     Debug.Log("clicked");
                     _color = new Color(0f, 255f, 0f);
-                    colorImg.GetComponent<Image>().color = _color;
-                    if (nounImg.activeInHierarchy)
-                    {
-                        colorImg.SetActive(true);
-                        nounImg.SetActive(false);
-                    }
-                    colorImg.SetActive(true);
+                  //  colorImg.GetComponent<Image>().color = _color;
+                    nounImg.GetComponent<Image>().color = _color;
+                  
                     break;
 
                 case "Yellow":
                     Debug.Log("clicked");
                     _color = new Color(255f, 215f, 0f);
-                    colorImg.GetComponent<Image>().color = _color;
-                    if (nounImg.activeInHierarchy)
-                    {
-                        colorImg.SetActive(true);
-                        nounImg.SetActive(false);
-                    }
-                    colorImg.SetActive(true);
+                   // colorImg.GetComponent<Image>().color = _color;
+                    nounImg.GetComponent<Image>().color = _color;
                     break;
 
                 case "Orange":
                     Debug.Log("clicked");
                     _color = new Color(258f, 141f, 0f);
-                    colorImg.GetComponent<Image>().color = _color;
-                    if (nounImg.activeInHierarchy)
-                    {
-                        colorImg.SetActive(true);
-                        nounImg.SetActive(false);
-                    }
-                    colorImg.SetActive(true);
+                  //  colorImg.GetComponent<Image>().color = _color;
+                    nounImg.GetComponent<Image>().color = _color;
+
+
                     break;
 
                 case "Pink":
                     Debug.Log("clicked");
                     _color = new Color(255f, 0f, 143f);
-                    colorImg.GetComponent<Image>().color = _color;
-                    if (nounImg.activeInHierarchy)
-                    {
-                        colorImg.SetActive(true);
-                        nounImg.SetActive(false);
-                    }
-                    colorImg.SetActive(true);
+                //    colorImg.GetComponent<Image>().color = _color;
+                    nounImg.GetComponent<Image>().color = _color;
                     break;
 
                 default:
@@ -135,30 +116,38 @@ public class SentenceMaker : MonoBehaviour
             GameObject.Find(detectedWord).transform.parent.gameObject.SetActive(false);
         }
     }
-   
+
 
     public void EnableNoun(int id)
     {
-        if (colorImg.activeInHierarchy)
+        if (!isrecorded)
         {
-            colorImg.SetActive(false);
+            whichpos = 1;
+            if (colorImg.activeInHierarchy)
+            {
+                colorImg.SetActive(false);
+                nounImg.SetActive(true);
+            }
+            whichanimal = id;
             nounImg.SetActive(true);
+            nounImg.GetComponent<Image>().sprite = nounSprites[id];
+            nounImg.GetComponent<Image>().color = new Color(255,255,255);
         }
-        whichanimal = id;
-        nounImg.SetActive(true);
-        nounImg.GetComponent<Image>().sprite = nounSprites[id];
-        nounImg.GetComponent<Image>().color = _color;
     }
     public void EnableVerb(int verbid)
     {
-        if (colorImg.activeInHierarchy)
+        if (!isrecorded)
         {
-            colorImg.SetActive(false);
+            whichpos = 2;
+            if (colorImg.activeInHierarchy)
+            {
+                colorImg.SetActive(false);
+                nounImg.SetActive(true);
+            }
             nounImg.SetActive(true);
+            nounImg.GetComponent<Image>().sprite = verbsprite[whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
+            whicverb = verbid;
         }
-        nounImg.SetActive(true);
-        nounImg.GetComponent<Image>().sprite = verbsprite[whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
-        whicverb = verbid;
     }
     private void Update()
     {
@@ -181,6 +170,7 @@ public class SentenceMaker : MonoBehaviour
           
             if (newoutputobject.Count >= 3)
                 return;
+            SentenceMaker.sentenceMaker.startseconds = 2f;
             Debug.Log("Issemtencemaking");
             refbutton.GetComponentInChildren<Text>().text = outputobject[outputobject.Count - 1].GetComponentInChildren<TextMeshProUGUI>().text;
                     refbutton.GetComponentInChildren<Text>().color = outputobject[outputobject.Count - 1].GetComponent<Image>().color;
@@ -201,7 +191,7 @@ public class SentenceMaker : MonoBehaviour
                     refbutton.name = outputobject[outputobject.Count - 1].name;
            
          
-                g = Instantiate(refbutton, outpurposition[outputobject.Count - 1].position,Quaternion.identity,refbuttonobjectparent.transform.parent);
+                g = Instantiate(refbutton, outpurposition[whichpos].position,Quaternion.identity,refbuttonobjectparent.transform.parent);
                 newoutputobject.Add(g);
             isinstantiated = true;
                  

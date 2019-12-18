@@ -27,42 +27,43 @@ public class ButtonSet2 : MonoBehaviour
 
     public void EnableNoun(int verbid)
     {
-        
-
-        if (SentenceMaker.sentenceMaker == null)
+        if (!SentenceMaker.sentenceMaker.isrecorded)
         {
-            SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+
+            if (SentenceMaker.sentenceMaker == null)
+            {
+                SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+            }
+            SentenceMaker.sentenceMaker.whichanimal = verbid;
+            SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
+            SentenceMaker.sentenceMaker.isdropdownopen = false;
+            //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color;
+            this.gameObject.transform.parent.gameObject.SetActive(false);
         }
-        SentenceMaker.sentenceMaker. whichanimal = verbid;
-        SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(SentenceMaker.sentenceMaker.whicverb).GetComponent<SpriteRenderer>().sprite;
-        SentenceMaker.sentenceMaker.isdropdownopen = false;
-        //  SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color = SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().color;
-        this.gameObject.transform.parent.gameObject.SetActive(false);
     }
     public void Enableverb(int verbid)
     {
-        this.gameObject.transform.parent.gameObject.SetActive(true);
-        //  SentenceMaker.sentenceMaker.whichanimal = verbid;
-        if (SentenceMaker.sentenceMaker == null)
+        if (!SentenceMaker.sentenceMaker.isrecorded)
         {
-            SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
-        }
-        SentenceMaker.sentenceMaker.whicverb = verbid;
-        if (SentenceMaker.sentenceMaker.colorImg.activeInHierarchy)
-        {
-            SentenceMaker.sentenceMaker. colorImg.SetActive(false);
-            SentenceMaker.sentenceMaker. nounImg.SetActive(true);
-        }
-        SentenceMaker.sentenceMaker.isdropdownopen = false;
-        SentenceMaker.sentenceMaker. nounImg.SetActive(true);
-        SentenceMaker.sentenceMaker. nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker. verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
-        this.gameObject.transform.parent.gameObject.SetActive(false);
-   
-    }
-    private void Update()
-    {
-       
-    }
+            this.gameObject.transform.parent.gameObject.SetActive(true);
+            //  SentenceMaker.sentenceMaker.whichanimal = verbid;
+            if (SentenceMaker.sentenceMaker == null)
+            {
+                SentenceMaker.sentenceMaker = FindObjectOfType<SentenceMaker>();
+            }
+            SentenceMaker.sentenceMaker.whicverb = verbid;
+            if (SentenceMaker.sentenceMaker.colorImg.activeInHierarchy)
+            {
+                SentenceMaker.sentenceMaker.colorImg.SetActive(false);
+                SentenceMaker.sentenceMaker.nounImg.SetActive(true);
+            }
+            SentenceMaker.sentenceMaker.isdropdownopen = false;
+            SentenceMaker.sentenceMaker.nounImg.SetActive(true);
+            SentenceMaker.sentenceMaker.nounImg.GetComponent<Image>().sprite = SentenceMaker.sentenceMaker.verbsprite[SentenceMaker.sentenceMaker.whichanimal].transform.GetChild(verbid).GetComponent<SpriteRenderer>().sprite;
+            this.gameObject.transform.parent.gameObject.SetActive(false);
 
+        }
+    }
+  
 
 }
